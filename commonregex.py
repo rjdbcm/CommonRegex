@@ -20,27 +20,32 @@ zip_code         = re.compile(r'\b\d{5}(?:[-\s]\d{4})?\b')
 po_box           = re.compile(r'P\.? ?O\.? Box \d+', re.IGNORECASE)
 ssn              = re.compile('(?!000|666|333)0*(?:[0-6][0-9][0-9]|[0-7][0-6][0-9]|[0-7][0-7][0-2])[- ](?!00)[0-9]{2}[- ](?!0000)[0-9]{4}')
 address_with_zip = re.compile('\d{1,5} [\w\s]{1,30}(?:street|st(?:\s|\.)+|avenue|ave(?:\s|\.)+|road|rd(?:\s|\.)+|highway|hwy(?:\s|\.)+|square|sq(?:\s|\.)+|trail|trl(?:\s|\.)+|drive|dr(?:\s|\.)+|court|ct(?:\s|\.)+|park|parkway|pkwy(?:\s|\.)+|circle|cir(?:\s|\.)+|boulevard|blvd(?:\s|\.)+|island|port|view|parkways)(?:suite\s?\d+|apt\.?\s?\d+|ste\.?\s?\d+)?[\w\s,]{1,30}\d{5}\W?(?=\s|$)', re.IGNORECASE)
-
+uuid4            = re.compile('[0-9a-f]{12}4[0-9a-f]{3}[89ab][0-9a-f]{15}\Z', re.IGNORECASE)
+crossref_doi     = re.compile(r'^10.\d{4,9}[-._;():A-Z0-9]+$', re.IGNORECASE)
+wiley_doi        = re.compile(r'^10.1002/[^\s]+$', re.IGNORECASE)
 
 regexes = {
-  "dates"            : date,
-  "times"            : time,
-  "phones"           : phone,
-  "phones_with_exts" : phones_with_exts,
-  "links"            : link,
-  "emails"           : email,
-  "ips"              : ip,
-  "ipv6s"            : ipv6,
-  "mac_addresses"    : mac_address,
-  "prices"           : price,
-  "hex_colors"       : hex_color,
-  "credit_cards"     : credit_card,
-  "btc_addresses"    : btc_address,
-  "street_addresses" : street_address,
-  "zip_codes"        : zip_code,
-  "po_boxes"         : po_box,
-  "ssn_number"       : ssn,
-  "address_with_zip" : address_with_zip
+  "dates"             : date,
+  "times"             : time,
+  "phones"            : phone,
+  "phones_with_exts"  : phones_with_exts,
+  "links"             : link,
+  "emails"            : email,
+  "ips"               : ip,
+  "ipv6s"             : ipv6,
+  "mac_addresses"     : mac_address,
+  "prices"            : price,
+  "hex_colors"        : hex_color,
+  "credit_cards"      : credit_card,
+  "btc_addresses"     : btc_address,
+  "street_addresses"  : street_address,
+  "zip_codes"         : zip_code,
+  "po_boxes"          : po_box,
+  "ssn_us"            : ssn,
+  "address_with_zips" : address_with_zip,
+  "uuids"             : uuid4,
+  "wiley_dois"        : wiley_doi,
+  "crossref_dois"     : crossref_doi
 }
 
 class regex:
@@ -79,5 +84,8 @@ class CommonRegex(object):
             self.street_addresses = regex(self, street_address)(self)()
             self.zip_codes = regex(self, zip_code)(self)()
             self.po_boxes = regex(self, po_box)(self)()
-            self.ssn_number = regex(self, ssn)(self)()
-            
+            self.ssn_us = regex(self, ssn)(self)()
+            self.address_with_zips = regex(self, address_with_zip)(self)()
+            self.uuids = regex(self, uuid4)(self)()
+            self.wiley_dois = regex(self, wiley_doi)(self)()
+            self.crossref_dois = regex(self, crossref_doi)(self)()
