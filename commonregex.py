@@ -75,6 +75,7 @@ class CommonRegex(object):
             self.hex_colors = regex(self, hex_color)(self)()
             self.credit_cards = regex(self, credit_card)(self)()
             self.btc_addresses = regex(self, btc_address)(self)()
+            self.mac_addresses = regex(self, mac_address)(self)()
             self.street_addresses = regex(self, street_address)(self)()
             self.zip_codes = regex(self, zip_code)(self)()
             self.po_boxes = regex(self, po_box)(self)()
